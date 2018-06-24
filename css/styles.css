@@ -16,16 +16,6 @@ span, input {
     display: inline-block;
 }
 
-#error {
-  color: white;
-  background: red;
-  padding-top: 3%;
-  width: 22vw;
-  max-width: 275px;
-  height: 2.5rem;
-  text-align: center;
-}
-
 #gauche {
   float: left;
   width: 68%;
@@ -59,14 +49,5 @@ span, input {
 #gauche span + input[type="text"] {
   margin-left: 1%;
   margin-right: 32%;
-}
-
-
-
-@media screen and (max-width: 750px) {
-  #error {
-    height: auto;
-    width: auto;
-  }
 }
 

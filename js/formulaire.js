@@ -9,9 +9,7 @@
 *                                                             *
 ***************************************************************/
 
-
 $(function() {
-
 	var formGauche = $('<form id="formulaire"></form>');
 	$('#gauche').prepend(formGauche);
 
@@ -20,15 +18,14 @@ $(function() {
 		event.preventDefault();
 	});
 
-	//On cache le bouton "bouton" et le révèle uniquement s'il y a au moins un input
-	$('#droite > :button:eq(2)').hide();
+	//On désactive le "bouton" et l'active uniquement s'il y a au moins un input
+	$('#droite > :button:eq(2)').prop("disabled", true);
 
-	//Variables utilisées par dichotomie pour savoir si on a déjà mis l'input ou span
-	//Pour éviter des doublons et autres erreurs d'insertions pour le formulaire
-	var inputInserted = false; 
-	var spanInserted = false;
+	//On désactive le bouton "Zone de texte" pour des raisons de cohérence
+	$('#droite > :button:eq(0)').prop("disabled", false);
+	$('#droite > :button:eq(1)').prop("disabled", true);	
 
-	//Mode d'insertion différent si on ajoute le bouton au formulaire qu'on a généré
+	//Mode d'insertion différent du span et de l'input si on a ajouté le bouton au formulaire qu'on a généré
 	var buttonInserted = false;
 
 	//Evénement "clic" pour le bouton "Label"
@@ -38,55 +35,34 @@ $(function() {
 		$('#labelNom').remove();
 		$('#addButton').remove();
 
-		var formNom = $("<form id='labelNom'></form>");
-		formNom.append($("<label for='labelText'></label>").text('Nom du label '));
-		formNom.append($("<input type='text' id='labelText'>"));
-		formNom.append($("<br>"));
-		formNom.append($("<input type='submit' value='OK'>"));
+		var formLabel = $("<form id='labelNom'></form>");
+		formLabel.append($("<label for='labelText'></label>").text('Nom du label '));
+		formLabel.append($("<input type='text' id='labelText'>"));
+		formLabel.append($("<br>"));
+		formLabel.append($("<input type='submit' value='OK'>"));
 
-		formNom.submit(function(event) {
+		$('#droite > :button:eq(0)').prop("disabled", false);
+		$('#droite > :button:eq(1)').prop("disabled", true);
+
+		formLabel.submit(function(event) {
 			event.preventDefault();
 
 			var insertSpan = $("<span></span>").text($('#labelText').val() + " : ");
-			var verifInput = $('#formulaire > :input[type="text"]').filter(':last');
 
-			if(verifInput.length > 0 && inputInserted && !spanInserted) {
-
-				spanInserted = !spanInserted ;
-
-				verifInput.before(insertSpan);
-
-				//Ligne complété, on réinitialise
-				if(spanInserted === inputInserted) {
-					inputInserted = false ;
-					spanInserted = false ;
-				}
-
-			} else if(!spanInserted  && !inputInserted) {
-
-				if(buttonInserted) {
-					$('#formulaire > :input[type="submit"]').before($("<span></span>").text($('#labelText').val() + " : "));
-				} else {
-					$('#formulaire').append($("<span></span>").text($('#labelText').val() + " : "));
-				}
-				
-				spanInserted = !spanInserted ;
-
+			if(buttonInserted) {
+				$('#formulaire > :input[type="submit"]').before($("<span></span>").text($('#labelText').val() + " : "));
 			} else {
-				//Si span de la ligne déjà inséré, on affiche une erreur demandant d'ajouter sa zone de texte
-				var errorMessage = $("<p id='error'></p>").text("Veuillez ajouter une zone de texte !");
-				$('#droite').append(errorMessage);
-
-				setTimeout(function(){ errorMessage.remove(); }, 2000);
+				$('#formulaire').append($("<span></span>").text($('#labelText').val() + " : "));
 			}
+
+			$('#droite > :button:eq(0)').prop("disabled", true);
+			$('#droite > :button:eq(1)').prop("disabled", false);
 			
-			
-			formNom.remove();
+			formLabel.remove();
 			$('hr').remove();
 		});
 
-		$('#droite').append($('<hr>'));
-		$('#droite').append(formNom);
+		$('#droite').append($('<hr>')).append(formLabel);
 		$('#labelText').focus();
 	});
 
@@ -110,44 +86,25 @@ $(function() {
 			inputText.attr('id', $('#idInput').val());
 			inputText.attr('name', $('#idInput').val());
 
-			if(!inputInserted) {
-				if(buttonInserted) {
-					$('#formulaire > :input[type="submit"]').before(inputText);
-					$('#formulaire > :input[type="submit"]').before($('<br>'));
-				} else {
-					$('#formulaire').append(inputText);
-					$('#formulaire').append($('<br>'));
-				}	
+
+			if(buttonInserted) {
+				$('#formulaire > :input[type="submit"]').before(inputText);
+				$('#formulaire > :input[type="submit"]').before($('<br>'));
 			} else {
-				var errorMessage = $("<p id='error'></p>").text("Veuillez ajouter le label associé à la zone de texte !");
-				$('#droite').append(errorMessage);
+				$('#formulaire').append(inputText);
+				$('#formulaire').append($('<br>'));
+			}	
 
-				setTimeout(function(){ errorMessage.remove(); }, 2000);
-			}
+			$('#droite > :button:eq(0)').prop("disabled", false);
+			$('#droite > :button:eq(1)').prop("disabled", true);	
 
-
-			/* Système de switch permettant de savoir si l'utilisateur a complété une ligne
-			ou si l'utilisateur a inséré déjà un span ou non sur la ligne actuelle */
-			if(spanInserted && inputInserted) {
-				inputInserted = !inputInserted ;
-				spanInserted = !spanInserted;
-			} else if(!inputInserted && !spanInserted) {
-				inputInserted = true;
-				spanInserted = false;
-				
-			} else if(!inputInserted && spanInserted) {
-				inputInserted = false;
-				spanInserted = false;
-			}
-			
-			//Input inséré, on montre le bouton "bouton" et on enlève le formulaire d'ajout d'input
-			$('#droite > :button:eq(2)').show();
+			//Input inséré, on active le bouton "bouton" et on enlève le formulaire d'ajout d'input
+			$('#droite > :button:eq(2)').prop("disabled", false);
 			formTextZone.remove();
 			$('hr').remove();
 		});
 
-		$('#droite').append($('<hr>'));
-		$('#droite').append(formTextZone);
+		$('#droite').append($('<hr>')).append(formTextZone);
 		$('#idInput').focus();
 	});
 
@@ -183,8 +140,7 @@ $(function() {
 	  	});
 
 
-	  	$('#droite').append($('<hr>'));
-	  	$('#droite').append(formButton);
+	  	$('#droite').append($('<hr>')).append(formButton);
 	  	$('#idButton').focus();
 	  });
-	});
+});
