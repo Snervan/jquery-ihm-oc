@@ -1,0 +1,72 @@
+body {
+   margin: 0;
+}
+
+button {
+  margin: 6px auto;
+  width: auto;
+}
+
+span {
+  width: 5rem;
+  height: auto;
+}
+
+span, input {
+    display: inline-block;
+}
+
+#error {
+  color: white;
+  background: red;
+  padding-top: 3%;
+  width: 22vw;
+  max-width: 275px;
+  height: 2.5rem;
+  text-align: center;
+}
+
+#gauche {
+  float: left;
+  width: 68%;
+  height: 1000px;
+  padding-left: 10px;
+  padding-top: 10px;
+  background-color: #EFECCA;
+}
+#droite {
+  background-color: #CEFFF8;
+  height: 1000px;
+  padding : 4px;
+  padding-right: 0px;
+  padding-left: 72%;
+}
+
+#droite input[type="text"] {
+  width: 18vw;
+  max-width: 205px;
+}
+
+#droite input[type="submit"] {
+  margin-top: 10px;
+}
+
+#gauche input[type="text"] {
+  margin-bottom: 20px;
+  width: 8rem;
+}
+
+#gauche span + input[type="text"] {
+  margin-left: 1%;
+  margin-right: 32%;
+}
+
+
+
+@media screen and (max-width: 750px) {
+  #error {
+    height: auto;
+    width: auto;
+  }
+}
+
