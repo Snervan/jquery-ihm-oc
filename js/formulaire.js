@@ -1,10 +1,10 @@
 /**************************************************************
-*	IHM Activity (First activity in part 2 on OC)             *
+*   IHM Activity (First activity in part 2 on OC)             *
 *                                                             *
 *	@author : Snervan                                         *
 *	@project : IHM Activity                                   *
 *	@description : generate our own form with IHM buttons     *
-*				   on the right.                              *
+*                  on the right.                              *
 *                                                             *
 *                                                             *
 ***************************************************************/
