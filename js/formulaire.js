@@ -117,7 +117,7 @@ $(function() {
 	}
 
 	//On appelle la fonction régulièrement
-	setInterval(ombrage, 200);
+	setInterval(ombrage, 100);
 
 	//Evénement "clic" pour le bouton "Label"
 	$(':button:first').click(function() {
