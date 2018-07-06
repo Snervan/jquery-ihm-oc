@@ -89,12 +89,12 @@ $(function() {
 
 	function removeForms(typeForm) {
 
-		$('#helpMessage').finish().fadeOut(400, function() {
-			$(this).remove();
-
-			typeForm.finish().fadeOut(400, function() {
+		typeForm.finish().fadeOut(400, function() {
 				$(this).remove();
-			});
+		});
+
+		$('#helpMessage').finish().fadeOut(400, function() {
+					$(this).remove();
 		});
 
 		if(buttonInserted) $('#droite > :button:eq(2)').fadeOut(700, function() {
@@ -105,7 +105,7 @@ $(function() {
 		$('#droite > :button:eq(1)').css("opacity", "1");
 	}
 
-	//Fonction d'ombrage pour "Label", "Zone de texte", "Bouton"
+	//Fonction d'ombrage pour "Label", "Zone de texte" et "Bouton"
 	function ombrage() {
 		$('#droite button:hover').css('box-shadow', '3px 3px 4px black');
 
