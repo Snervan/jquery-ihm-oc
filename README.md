@@ -1,7 +1,7 @@
 # IHM jQuery (OC Exercise)
 
 ## About
-Exercise done with jQuery following the instructions of the activities on OpenClassrooms. It's an app where you can create your own form. If you want to test it, you need to use an Apache Server to run this little app.
+Exercises done with jQuery following the instructions of the activities on OpenClassrooms. It's an app where you can create your own form. If you want to test it, you need to use an Apache Server to run this little app.
 
 Link to the exercises :
 
