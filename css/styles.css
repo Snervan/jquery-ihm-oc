@@ -2,6 +2,10 @@ body {
    margin: 0;
 }
 
+b {
+  font-weight: bold;
+}
+
 button {
   margin: 6px auto;
   width: auto;

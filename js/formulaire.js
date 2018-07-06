@@ -1,11 +1,11 @@
 /**************************************************************
-*   IHM Activity (activity in part 3 on OC)                   *
+*   IHM Activity (activity in part 4 on OC)                   *
 *                                                             *
 *   @author : Snervan (RetroMan on OC)                        *
 *   @project : IHM Activity                                   *
 *   @description : generate our own form with IHM buttons     *
 *                  on the right. fadeIn and fadeOut right     *
-*                  form.                                      *
+*                  form. Add help messages with AJAX.         *
 *                                                             *
 *                                                             *
 ***************************************************************/
@@ -36,6 +36,9 @@ $(function() {
 	// Variable utilisé comme condition pour ré-activer correctement le bouton "bouton"
 	var showingAddButton = false;
 
+	//Affiche un message d'aide une fois la page chargée pour guider l'utilisateur
+	$('#droite').append(helpMessages('loadedPage'));
+
 	function reEnableButton(typeForm) {
 		typeForm.prop("disabled", false);
 	}
@@ -52,7 +55,25 @@ $(function() {
 		});
 	}
 
+	//Retourne un nouvel élément créé qui contiendra le message d'aide chargé
+	function helpMessages(helpName) {
+		var helpMessage = $("<div id='helpMessage'></div>");
+		var fileToLoad = 'aide.htm #' + String(helpName);
+
+		helpMessage.load(fileToLoad, function() {
+			helpMessage.hide().fadeIn(1500);
+		});
+		return helpMessage;
+	}
+
 	function createForms(formId, inputId, textToInsert) {
+		// Sert uniquement à supprimer le message d'aide lors du premier chargement de la page
+		if($('#helpMessage').length !== 0) {
+			$('#helpMessage').fadeOut(400, function() {
+				$(this).remove();
+			});
+		}
+
 		var typeForm = $("<form id='" + formId + "'></form>");
 		typeForm.append($("<label for='" + inputId + "'></label>").text(String(textToInsert + " ")));
 		typeForm.append($("<input type='text' id='" + inputId + "' required>"));
@@ -68,11 +89,15 @@ $(function() {
 
 	function removeForms(typeForm) {
 
-		typeForm.finish().fadeOut(400, function() {
+		$('#helpMessage').finish().fadeOut(400, function() {
 			$(this).remove();
+
+			typeForm.finish().fadeOut(400, function() {
+				$(this).remove();
+			});
 		});
 
-		if(buttonInserted) $('#droite > :button:eq(2)').fadeOut(300, function() {
+		if(buttonInserted) $('#droite > :button:eq(2)').fadeOut(700, function() {
 			$(this).remove();
 		});
 
@@ -118,6 +143,7 @@ $(function() {
 		});
 
 		$('#droite').append(formLabel);
+		$('#droite').append(helpMessages('aideLabel'));
 		$('#labelText').focus();
 	});
 
@@ -165,6 +191,7 @@ $(function() {
 		});
 
 		$('#droite').append(formTextZone);
+		$('#droite').append(helpMessages('aideTextZone'));
 		$('#idInput').focus();
 	});
 
@@ -219,6 +246,7 @@ $(function() {
 		});
 
 	  	$('#droite').append(formButton);
+	  	$('#droite').append(helpMessages('aideBouton'));
 	  	$('#idButton').focus();
 	  });
 });
