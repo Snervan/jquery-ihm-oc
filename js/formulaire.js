@@ -105,6 +105,20 @@ $(function() {
 		$('#droite > :button:eq(1)').css("opacity", "1");
 	}
 
+	//Fonction d'ombrage pour "Label", "Zone de texte", "Bouton"
+	function ombrage() {
+		$('#droite button:hover').css('box-shadow', '3px 3px 4px black');
+
+		$('#droite button').mouseout(function() {
+			$(this).css('box-shadow', 'none') 
+		});
+
+		$('#droite button:disabled').css('box-shadow', 'none');
+	}
+
+	//On appelle la fonction régulièrement
+	setInterval(ombrage, 200);
+
 	//Evénement "clic" pour le bouton "Label"
 	$(':button:first').click(function() {
 
