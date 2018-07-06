@@ -69,7 +69,7 @@ $(function() {
 	function createForms(formId, inputId, textToInsert) {
 		// Sert uniquement à supprimer le message d'aide lors du premier chargement de la page
 		if($('#helpMessage').length !== 0) {
-			$('#helpMessage').fadeOut(400, function() {
+			$('#helpMessage').finish().fadeOut(200, function() {
 				$(this).remove();
 			});
 		}
