@@ -227,7 +227,6 @@ $(function() {
 			$('#droite > :button:eq(0)').prop("disabled", true);
 
 		} else {
-			console.log("Condition 2");
 			if($('#droite > :button:eq(0)').is(':disabled')) {
 				ButtonToReEnable = $('#droite > :button:eq(1)');
 				$('#droite > :button:eq(1)').prop("disabled", true);
