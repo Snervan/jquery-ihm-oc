@@ -67,18 +67,17 @@ $(function() {
 	}
 
 	function removeForms(typeForm) {
-		typeForm.finish().fadeOut(400);
 
-		if(buttonInserted) $('#droite > :button:eq(2)').fadeOut(300);
+		typeForm.finish().fadeOut(400, function() {
+			$(this).remove();
+		});
+
+		if(buttonInserted) $('#droite > :button:eq(2)').fadeOut(300, function() {
+			$(this).remove();
+		});
+
 		$('#droite > :button:eq(0)').css("opacity", "1");
 		$('#droite > :button:eq(1)').css("opacity", "1");
-		
-		setTimeout(function() {
-			typeForm.remove();
-
-			//Si le "submit" dans le div gauche a été ajouté, on retire le bouton dans le div droit (car plus besoin)
-			if(buttonInserted) $('#droite > :button:eq(2)').remove();
-		}, 410);
 	}
 
 	//Evénement "clic" pour le bouton "Label"
