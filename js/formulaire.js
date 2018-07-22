@@ -32,8 +32,9 @@ $(function() {
 	// Permet également de vérifier si on a ajouté le "submit" dans le div gauche
 	var buttonInserted = false;
 
-	// Change à true si on a ajouté au moins un input de type texte dans le div gauche
-	// Variable utilisé comme condition pour ré-activer correctement le bouton "bouton"
+	/* Change à 'true' si on a ajouté au moins un input de type texte dans le div gauche
+	   Variable utilisé comme condition pour ré-activer correctement le bouton "bouton" si on
+	   a annulé l'ajout du bouton ou que nous avons terminé avec l'un des deux autres formulaires */
 	var showingAddButton = false;
 
 	//Affiche un message d'aide une fois la page chargée pour guider l'utilisateur
