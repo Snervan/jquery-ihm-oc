@@ -43,18 +43,6 @@ $(function() {
 		typeForm.prop("disabled", false);
 	}
 
-	function mouseFunc(type, value) {
-		var newInput = "<input type='" + type + "' value='" + value + "'>"
-
-		/* On retourne le nouvel input de type submit ou reset avec les évènements souris
-		   pour ajouter une ombre au survol */
-		return $(newInput).mouseover(function() {
-			$(this).css('box-shadow', '3px 3px 4px black');
-		}).mouseout(function() {
-			$(this).css('box-shadow', 'none');
-		});
-	}
-
 	//Retourne un nouvel élément créé qui contiendra le message d'aide chargé
 	function helpMessages(helpName) {
 		var helpMessage = $("<div id='helpMessage'></div>");
@@ -67,12 +55,6 @@ $(function() {
 	}
 
 	function createForms(formId, inputId, textToInsert) {
-		// Sert uniquement à supprimer le message d'aide lors du premier chargement de la page
-		if($('#helpMessage').length !== 0) {
-			$('#helpMessage').finish().fadeOut(200, function() {
-				$(this).remove();
-			});
-		}
 
 		var typeForm = $("<form id='" + formId + "'></form>");
 		typeForm.append($("<label for='" + inputId + "'></label>").text(String(textToInsert + " ")));
@@ -80,8 +62,8 @@ $(function() {
 		typeForm.append($("<br>"));
 
 		//On créé les input type submit et reset
-		typeForm.append(mouseFunc('submit', 'OK'));
-		typeForm.append(mouseFunc('reset', 'Annuler'));
+		typeForm.append("<button type='submit'> OK </button>");
+		typeForm.append("<button type='reset'> Annuler </button>");
 
 		typeForm.hide().fadeIn(1500);
 		return typeForm;
@@ -105,22 +87,14 @@ $(function() {
 		$('#droite > :button:eq(1)').css("opacity", "1");
 	}
 
-	//Fonction d'ombrage pour "Label", "Zone de texte" et "Bouton"
-	function ombrage() {
-		$('#droite button:hover').css('box-shadow', '3px 3px 4px black');
-
-		$('#droite button').mouseout(function() {
-			$(this).css('box-shadow', 'none') 
-		});
-
-		$('#droite button:disabled').css('box-shadow', 'none');
-	}
-
-	//On appelle la fonction régulièrement
-	setInterval(ombrage, 100);
-
 	//Evénement "clic" pour le bouton "Label"
 	$(':button:first').click(function() {
+		// Sert uniquement à supprimer le message d'aide affiché une fois la page chargée
+		if($('#helpMessage').length !== 0) {
+			$('#helpMessage').finish().fadeOut(200, function() {
+				$(this).remove();
+			});
+		}
 
 		var formLabel = createForms("labelNom", "labelText", "Nom du label :");
 
@@ -227,7 +201,6 @@ $(function() {
 			$('#droite > :button:eq(0)').prop("disabled", true);
 
 		} else {
-			console.log("Condition 2");
 			if($('#droite > :button:eq(0)').is(':disabled')) {
 				ButtonToReEnable = $('#droite > :button:eq(1)');
 				$('#droite > :button:eq(1)').prop("disabled", true);

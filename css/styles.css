@@ -37,12 +37,16 @@ span, input {
   font-size: 18px;
 }
 
+#droite button:hover:enabled {
+  box-shadow: 3px 3px 4px black;
+}   
+
 #droite input[type="text"] {
   width: 18vw;
   max-width: 205px;
 }
 
-#droite input[type="submit"] {
+#droite button[type="submit"] {
   margin-top: 10px;
   margin-right: 10px;
 }
