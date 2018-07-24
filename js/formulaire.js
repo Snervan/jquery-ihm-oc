@@ -40,8 +40,8 @@ $(function() {
 	//Affiche un message d'aide une fois la page chargée pour guider l'utilisateur
 	$('#droite').append(helpMessages('loadedPage'));
 
-	function reEnableButton(typeForm) {
-		typeForm.prop("disabled", false);
+	function reEnableButton(buttonToEnable) {
+		buttonToEnable.prop("disabled", false);
 	}
 
 	//Retourne un nouvel élément créé qui contiendra le message d'aide chargé
@@ -90,7 +90,7 @@ $(function() {
 
 	//Evénement "clic" pour le bouton "Label"
 	$(':button:first').click(function() {
-		// Sert uniquement à supprimer le message d'aide affiché une fois la page chargée
+		// Sert uniquement à supprimer le message d'aide affiché au lancement une fois la page chargée
 		if($('#helpMessage').length !== 0) {
 			$('#helpMessage').finish().fadeOut(200, function() {
 				$(this).remove();
@@ -132,7 +132,7 @@ $(function() {
 		});
 
 		$('#droite').append(formLabel);
-		$('#droite').append(helpMessages('aideLabel'));
+		$(formLabel).after(helpMessages('aideLabel'));
 		$('#labelText').focus();
 	});
 
@@ -180,7 +180,7 @@ $(function() {
 		});
 
 		$('#droite').append(formTextZone);
-		$('#droite').append(helpMessages('aideTextZone'));
+		$(formTextZone).after(helpMessages('aideTextZone'));
 		$('#idInput').focus();
 	});
 
@@ -234,7 +234,7 @@ $(function() {
 		});
 
 	  	$('#droite').append(formButton);
-	  	$('#droite').append(helpMessages('aideBouton'));
+	  	$(formButton).after(helpMessages('aideBouton'));
 	  	$('#idButton').focus();
 	  });
 });
